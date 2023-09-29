@@ -19,7 +19,8 @@ public class Die {
     }
 
     public void roll() {
-        this.currentValue = random.nextInt(numberOfSides + 1);
+        this.currentValue = random.nextInt(numberOfSides) + 1;
+        //System.out.println("TEST: die rolled " + currentValue);
     }
 
 

@@ -3,17 +3,14 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
-        //Nedan följer en beskrivning av hur spelet ska
-        // se ut, samt några metoder ni ska skapa. Ni måste sedan själva skriva main-metoden
-        // utifrån den här informationen, dvs ni måste klura ut hur allting hänger ihop själva!
-        //Beskrivning av spelet:
+        //TODO enable playing against the computer
+        
+
+
         //Programmet frågar först hur många spelare som vill spela, hur många tärningar varje
         // spelare skall ha  och  hur  många  sidor  tärningarna  skall  ha.  Det  frågar
         // sedan  efter  namnen  på  spelarna.  Ni  kan anta att användaren matar in korrekta
         // värden, dvs ni behöver ej ha med felhantering.
-
-
-
         //Spelet kommer sedan att spelas i fem omgångar. Varje omgång består av att spelarna,
         // en efter en, gissar på ett värde och sedan rullar sina tärningar.
         // Om värdet spelaren gissade på är lika med det sammanlagda värdet på tärningarna,
@@ -23,11 +20,10 @@ public class Main {
         takeTurn(playerList);
         ArrayList<Player> winnerArray = getWinners(playerList);
         printWinners(winnerArray);
-
-
-
     }
     static Scanner sc = new Scanner(System.in);
+
+
 
     private static ArrayList<Player> initialize() {
         // En metod som initialiserar spelet genom att ta emot användarinput och skapa alla
@@ -63,13 +59,15 @@ public class Main {
         // En metod som tar  emot  en  lista  av  spelare  och  spelar  färdigt
         // en  hel  omgång. Går igenom listan av spelare, rullar varje spelares tärningar,
         // frågar efter en gissning och ökar spelarens poäng om hen gissat rätt.
+        //TODO delay between printing lines
         //long ROLL_DELAY = 3;
 
         for (int round = 1; round < 6; round++) { // 5 rounds
 
+            System.out.println();
             System.out.println("ROUND " + round + ":");
             System.out.println("You are using " +
-                    players.get(0).dice.size() + " " +
+                    numString(players.get(0).dice.size()) + " " +
                     players.get(0).dice.get(0).getNumberOfSides() + "-sided dice.");
             for (Player player : players) {
                 player.rollDice();
@@ -91,9 +89,11 @@ public class Main {
                     System.out.println("You guessed right!");
                     System.out.println("Your score increased by 1. Current score: " +
                             player.score);
+                    System.out.println();
                 } else {
                     System.out.println("I'm afraid you guessed wrong. Current score: " +
                             player.score);
+                    System.out.println();
                 }
                 System.out.println();
 
@@ -124,19 +124,37 @@ public class Main {
             // if there are three winners.
             for (int i = 0; i<ArrayOfWinners.size(); i++){
                 if (i == ArrayOfWinners.size() - 2) { // penultimate
-                    System.out.println(ArrayOfWinners.get(i).name);
+                    System.out.print(ArrayOfWinners.get(i).name);
                 }
                 else if (i == ArrayOfWinners.size() - 1) { // last
                     System.out.println(" and " + ArrayOfWinners.get(i).name + "!");
                 }
                 else {
-                    System.out.println(ArrayOfWinners.get(i).name + ", ");
+                    System.out.print(ArrayOfWinners.get(i).name + ", ");
                 }
             }
         } else {
             System.out.println("And the winner is " + ArrayOfWinners.get(0).name + "!");
         }
+        System.out.println();
 
+    }
+    // A method that takes an int between 0 and 10 as input and returns the
+    // number as a string, for example input: 1, return "one"
+    private static String numString(int num) {
+        ArrayList<String> numStrings = new ArrayList<>();
+        numStrings.add("zero");
+        numStrings.add("one");
+        numStrings.add("two");
+        numStrings.add("three");
+        numStrings.add("four");
+        numStrings.add("five");
+        numStrings.add("six");
+        numStrings.add("seven");
+        numStrings.add("eight");
+        numStrings.add("nine");
+        numStrings.add("ten");
+        return numStrings.get(num);
     }
 
 
